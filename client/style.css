@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url('https://assets.onecompiler.app/436akzcdy/436e38ys2/Screenshot%202025-01-18%20144617.png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-attachment: fixed;
+  background-blend-mode: multiply;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #6a5acd;
+  margin-bottom: 20px;
+}
+
+.email-section {
+  margin-bottom: 20px;
+}
+
+.email-input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.email-btn {
+  background-color: #6a5acd;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.email-btn:hover {
+  background-color: #7b68ee;
+}
+
+.question-container {
+  margin-top: 20px;
+  display: none; /* Hidden initially */
+}
+
+.question-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.option-btn {
+  background-color: #ff3399;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.option-btn:hover {
+  background-color: #ff66b2;
+}
+
+.results {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.emoticon {
+  font-size: 32px;
+  margin-left: 10px;
+  opacity: 0; /* Hide by default */
+  animation: pop 1.5s ease-in-out forwards; /* Add pop animation */
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.thank-you-message {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff3399;
+  margin-top: 20px;
+  display: none; /* Initially hidden */
+}

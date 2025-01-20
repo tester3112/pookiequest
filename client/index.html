@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cute Questionnaire</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: url('https://assets.onecompiler.app/436akzcdy/436e38ys2/Screenshot%202025-01-18%20144617.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-attachment: fixed;
+      background-blend-mode: multiply;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #6a5acd;
+      margin-bottom: 20px;
+    }
+
+    .email-section {
+      margin-bottom: 20px;
+    }
+
+    .email-input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .email-btn {
+      background-color: #6a5acd;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .email-btn:hover {
+      background-color: #7b68ee;
+    }
+
+    .question-container {
+      margin-top: 20px;
+      display: none; /* Hidden initially */
+    }
+
+    .question-text {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .option-btn {
+      background-color: #ff3399;
+      border: none;
+      color: white;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .option-btn:hover {
+      background-color: #ff66b2;
+    }
+
+    .results {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .emoticon {
+      font-size: 32px;
+      margin-left: 10px;
+      opacity: 0; /* Hide by default */
+      animation: pop 1.5s ease-in-out forwards; /* Add pop animation */
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .thank-you-message {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff3399;
+      margin-top: 20px;
+      display: none; /* Initially hidden */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Cute Questionnaire</h1>
+
+    <div class="email-section" id="email-section">
+      <input 
+        type="email" 
+        id="email" 
+        class="email-input" 
+        placeholder="Enter your email" 
+        required
+      />
+      <button class="email-btn" onclick="startQuestionnaire()">Start</button>
+    </div>
+
+    <div id="question-container" class="question-container">
+      <p id="question-text" class="question-text"></p>
+      <div class="options">
+        <button class="option-btn" onclick="nextQuestion(1)">Option 1</button>
+        <button class="option-btn" onclick="nextQuestion(2)">Option 2</button>
+        <button class="option-btn" onclick="nextQuestion(3)">Option 3</button>
+      </div>
+    </div>
+
+    <div id="results" class="results"></div>
+    <div id="thank-you-message" class="thank-you-message">Thank you for your responses cutie 💕</div>
+  </div>
+
+  <script>
+    let currentQuestion = 0;
+    const questions = [
+      {
+        question: "Hyy, how are you?",
+        options: ["Fine", "Not Good"],
+        emoticons: ["😍", "😒"]
+      },
+      {
+        question: "When will we meet?",
+        options: ["Monday", "Tuesday", "Never"],
+        emoticons: ["🥰", "😍", "😢"]
+      },
+      {
+        question: "How much do you like me?",
+        options: ["below 50%", "between 50%-80%", "above 80%"],
+        emoticons: ["😐", "😍", "🥰"]
+      }
+    ];
+
+    const results = [];
+    let userEmail = "";
+
+    function startQuestionnaire() {
+      const emailInput = document.getElementById("email");
+      userEmail = emailInput.value;
+
+      if (!userEmail || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(userEmail)) {
+        alert("Please enter a valid email address!");
+        return;
+      }
+
+      document.getElementById("email-section").style.display = "none";
+      document.getElementById("question-container").style.display = "block";
+
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const question = questions[currentQuestion];
+      const questionText = document.getElementById("question-text");
+      questionText.textContent = question.question;
+
+      const optionButtons = document.querySelectorAll('.option-btn');
+      optionButtons.forEach((btn, index) => {
+        if (index < question.options.length) {
+          btn.textContent = question.options[index];
+          btn.style.display = 'inline-block';
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+    }
+
+    function nextQuestion(optionIndex) {
+      const selectedOption = questions[currentQuestion].options[optionIndex - 1];
+      const selectedEmoticon = questions[currentQuestion].emoticons[optionIndex - 1];
+
+      results.push({ answer: selectedOption, emoticon: selectedEmoticon });
+
+      const emoticonDiv = document.getElementById("results");
+      const emoticonElem = document.createElement("span");
+      emoticonElem.classList.add("emoticon");
+      emoticonElem.textContent = selectedEmoticon;
+
+      emoticonDiv.appendChild(emoticonElem);
+
+      setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          showQuestion();
+          emoticonDiv.innerHTML = '';
+        } else {
+          document.getElementById("question-container").style.display = 'none';
+          document.getElementById("results").style.display = 'none';
+          document.getElementById("thank-you-message").style.display = 'block';
+          sendResultsToBackend();
+        }
+      }, 1000);
+    }
+function sendResultsToBackend() {
+  const data = {
+    email: userEmail, // Include the user's email
+    answers: results,
+  };
+
+  fetch('http://localhost:3000/saveResponses', { // Update this URL to your backend's global endpoint
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((responseData) => {
+      console.log('Success:', responseData);
+      alert('Your responses were successfully saved!');
+    })
+    .catch((error) => {
+      console.error('Error while saving responses:', error);
+      alert('Failed to save your responses. Please try again later.');
+    });
+}
+
+  </script>
+</body>
+</html> 
