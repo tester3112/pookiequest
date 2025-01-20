@@ -84,7 +84,7 @@ function sendResultsToBackend() {
     answers: results,
   };
 
-  fetch('https://backend-g2ri.onrender.com', {
+  fetch('https://pookiequest-7uwq.onrender.com/saveResponses', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
